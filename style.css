@@ -12,19 +12,29 @@ body{
     background-color: #e2e0e0;
 }
 
-.output-field{
+.output-field-top, .output-field-bottom{
     display: inline-block;
     vertical-align: top;
-    border: 2px solid black;
+    border-left: 2px solid black;
+    border-right: 2px solid black;
     box-sizing: border-box;
     padding: auto;
-    margin: 5px 0px 5px 0px;
     text-decoration: none;
     text-align: right;
-    font-size: 40px;
+    font-size: 20px;
     width: 420px;
-    height: 100px;
+    height: 50px;
     background-color: white;
+}
+
+.output-field-top{
+    border-top: 2px solid black;
+    margin-top: 5px;
+}
+
+.output-field-bottom{
+    border-bottom: 2px solid black;
+    margin-bottom: 5px;
 }
 
 button{
