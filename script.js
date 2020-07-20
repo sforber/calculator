@@ -1,20 +1,4 @@
-/*Operation functions*/
-function add(a,b){
-    return (a + b);
-}
-
-function subtract(a,b){
-    return (a - b);
-}
-
-function multiply(a,b){
-    return (a * b);
-}
-
-function divide(a,b){
-    return (a / b);
-}
-
+/*Operation function*/
 function operate(operator, a, b){
     if (operator === "add"){
         a = parseInt(a);
@@ -28,10 +12,21 @@ function operate(operator, a, b){
         return (a * b);
     }
     else if (operator === "divide"){
-        return (a/b);
+        if(b == 0){
+            return "ERROR"
+        }
+        else{
+            return (a/b);
+        }
     }
-    
-    
+}
+
+/* Symbols dictionary */
+let symbols = {
+    add: "+",
+    subtract: "-",
+    divide: "/",
+    multiply: "x"
 }
 
 /*Display Function*/
@@ -40,61 +35,107 @@ const displayBottom = document.querySelector('.output-field-bottom');
 const displayTextBottom = document.createElement('p');
 const displayTextTop = document.createElement('p');
 
-var firstValue = "";
-var secondValue = "";
+var historyValue = "";
+var currentValue = "";
 var ans = "";
 var operationUsed = "";
+var justCalculated = false;
+
+function equals(operator, currentValue, historyValue){
+    displayTextTop.innerHTML += currentValue;
+    displayTextTop.innerHTML += " = ";
+    ans = operate(operationUsed, historyValue, currentValue);
+    displayTextBottom.innerHTML = ans;
+    historyValue = "";
+    currentValue = "";
+    justCalculated = true;
+    return ans;
+}
 
 function updateDisplay(value){
     if (value >= 0 || value < 10){
-        displayTextBottom.innerHTML += value;
         if (displayTextTop.innerHTML === ""){
-            firstValue += value;
-            console.log("FIrst: "+firstValue)
+            displayTextBottom.innerHTML += value;
+            historyValue += value;
         }
         else{
-            secondValue += value;
-            console.log("second: "+secondValue)
+            if(justCalculated){
+                displayTextTop.innerHTML = ans + " "+symbols[operationUsed] + " ";
+                displayTextBottom.innerHTML = value;
+                historyValue = ans;
+                currentValue = value;
+                justCalculated = false;
+            }
+            else{
+                currentValue += value;
+                displayTextBottom.innerHTML += value;
+            }
         }
     }
+
     else if(value === "add"){
-        displayTextTop.innerHTML += firstValue +"+";
-        displayTextBottom.innerHTML = "";
-        operationUsed = value;       
+        if (displayTextTop.innerHTML === ""){
+            displayTextTop.innerHTML += historyValue +"+";
+            displayTextBottom.innerHTML = "";
+            operationUsed = value;
+        }
+        else{
+            currentValue = equals(value, currentValue, historyValue);
+            operationUsed = value;
+        }         
     }
+
     else if(value === "subtract"){
-        displayTextTop.innerHTML += firstValue+" - ";
-        displayTextBottom.innerHTML = "";
-        operationUsed = value;
+        if (displayTextTop.innerHTML === ""){
+            displayTextTop.innerHTML += historyValue +"-";
+            displayTextBottom.innerHTML = "";
+            operationUsed = value;
+        }
+        else{
+            currentValue = equals(value, currentValue, historyValue);
+            operationUsed = value;
+        } 
     }
+
     else if(value === "multiply"){
-        displayTextTop.innerHTML += firstValue+" x ";
-        displayTextBottom.innerHTML = "";
-        operationUsed = value;
+        if (displayTextTop.innerHTML === ""){
+            displayTextTop.innerHTML += historyValue +"x";
+            displayTextBottom.innerHTML = "";
+            operationUsed = value;
+        }
+        else{
+            currentValue = equals(value, currentValue, historyValue);
+            operationUsed = value;
+        }
     }
+
     else if(value === "divide"){
-        displayTextTop.innerHTML += firstValue+" / ";
-        displayTextBottom.innerHTML = "";
-        operationUsed = value;
+        if (displayTextTop.innerHTML === ""){
+            displayTextTop.innerHTML += historyValue +"/";
+            displayTextBottom.innerHTML = "";
+            operationUsed = value;
+        }
+        else{
+            currentValue = equals(value, currentValue, historyValue);
+            operationUsed = value;
+        }
     }
+
     else if(value === "equals"){
-        displayTextTop.innerHTML += secondValue;
-        displayTextTop.innerHTML += " = ";
-        ans = operate(operationUsed, firstValue, secondValue);
-        displayTextBottom.innerHTML = ans;
-        firstValue = "";
-        secondValue = "";
-        firstValue += ans;
+        currentValue = equals(value, currentValue, historyValue)
     }
+
     else if(value === "clear"){
         displayTextBottom.innerHTML = "";
         displayTextTop.innerHTML = "";
-        firstValue = "";
-        secondValue = "";
+        historyValue = "";
+        currentValue = "";
+        ans = 0;
+        justCalculated = false;
     }
+
     displayBottom.appendChild(displayTextBottom);
     displayTop.appendChild(displayTextTop);
-    console.log(firstValue);
 }
 
 
