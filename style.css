@@ -1,0 +1,52 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+}
+
+#container{
+    margin: auto;
+    width: 440px;
+    height: 560px;
+    border: 5px solid #777777;
+    border-radius: 3px;
+    background-color: #e2e0e0;
+}
+
+.output-field{
+    display: inline-block;
+    vertical-align: top;
+    border: 2px solid black;
+    box-sizing: border-box;
+    padding: auto;
+    margin: 5px 0px 5px 0px;
+    text-decoration: none;
+    text-align: right;
+    font-size: 40px;
+    width: 420px;
+    height: 100px;
+    background-color: white;
+}
+
+button{
+    display: inline-block;
+    vertical-align: top;
+    text-align: center;
+    border: 2px solid black;
+    box-sizing: border-box;
+    padding: auto;
+    margin: 5px 0px 5px 0px;
+    text-decoration: none;
+    font-size: 30px;
+    width: 100px;
+    height: 100px;
+}
+
+.number-btns{
+    background-color: #b4b3b3;
+}
+
+.operation-btns{
+    background-color: #fdc777;
+}
+
+.clear-btns{background-color: #f52525;}

@@ -1,0 +1,1 @@
+Javascript calculator for the Odin Project
