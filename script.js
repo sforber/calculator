@@ -1,4 +1,4 @@
-/*Operation function*/
+/**Operation function*/
 function operate(operator, a, b){
     if (operator === "add"){
         a = parseInt(a);
@@ -21,7 +21,7 @@ function operate(operator, a, b){
     }
 }
 
-/* Symbols dictionary */
+/**Symbols dictionary */
 let symbols = {
     add: "+",
     subtract: "-",
@@ -29,17 +29,20 @@ let symbols = {
     multiply: "x"
 }
 
-/*Display Function*/
+/**Constants to be used to edit display*/
 const displayTop = document.querySelector('.output-field-top');
 const displayBottom = document.querySelector('.output-field-bottom');
 const displayTextBottom = document.createElement('p');
 const displayTextTop = document.createElement('p');
 
+/**Variables to store values*/
 var historyValue = "";
 var currentValue = "";
 var ans = "";
 var operationUsed = "";
 var justCalculated = false;
+
+/**Equals function: evaluates user inputted sum*/
 
 function equals(operator, currentValue, historyValue){
     displayTextTop.innerHTML += currentValue;
@@ -51,6 +54,8 @@ function equals(operator, currentValue, historyValue){
     justCalculated = true;
     return ans;
 }
+
+/**Updates the display depending on the button events*/
 
 function updateDisplay(value){
     if (value >= 0 || value < 10){
@@ -74,7 +79,7 @@ function updateDisplay(value){
     }
 
     else if(value === "add"){
-        if (displayTextTop.innerHTML === ""){
+        if (displayTextTop.innerHTML === "" || justCalculated){
             displayTextTop.innerHTML += historyValue +"+";
             displayTextBottom.innerHTML = "";
             operationUsed = value;
@@ -86,7 +91,7 @@ function updateDisplay(value){
     }
 
     else if(value === "subtract"){
-        if (displayTextTop.innerHTML === ""){
+        if (displayTextTop.innerHTML === ""  || justCalculated){
             displayTextTop.innerHTML += historyValue +"-";
             displayTextBottom.innerHTML = "";
             operationUsed = value;
@@ -98,7 +103,7 @@ function updateDisplay(value){
     }
 
     else if(value === "multiply"){
-        if (displayTextTop.innerHTML === ""){
+        if (displayTextTop.innerHTML === ""  || justCalculated){
             displayTextTop.innerHTML += historyValue +"x";
             displayTextBottom.innerHTML = "";
             operationUsed = value;
@@ -110,7 +115,7 @@ function updateDisplay(value){
     }
 
     else if(value === "divide"){
-        if (displayTextTop.innerHTML === ""){
+        if (displayTextTop.innerHTML === ""  || justCalculated){
             displayTextTop.innerHTML += historyValue +"/";
             displayTextBottom.innerHTML = "";
             operationUsed = value;
@@ -122,7 +127,7 @@ function updateDisplay(value){
     }
 
     else if(value === "equals"){
-        currentValue = equals(value, currentValue, historyValue)
+        historyValue = equals(value, currentValue, historyValue)
     }
 
     else if(value === "clear"){
@@ -130,7 +135,7 @@ function updateDisplay(value){
         displayTextTop.innerHTML = "";
         historyValue = "";
         currentValue = "";
-        ans = 0;
+        ans = "";
         justCalculated = false;
     }
 
@@ -139,7 +144,7 @@ function updateDisplay(value){
 }
 
 
-/*Creating eventListeners for each button*/
+/**Creating eventListeners for each button*/
 const buttons = document.querySelectorAll('button');
 buttons.forEach((button) => {
     button.addEventListener('click', () => {
